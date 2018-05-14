@@ -1,0 +1,10 @@
+---
+ - hosts:
+    - tag_docker-app
+   roles:
+    - docker-server
+    - deploy
+   become: true
+
+
+
