@@ -49,7 +49,10 @@ docker run -d --network=reddit -p 9292:9292 -e "POST_SERVICE_HOST=post2" -e "COM
  - Создан  .gitlab-ci.yml  файл и проект запушен в репозиторий  gitlab-ci
  - Установлен и зарегистрирован runner
  - Добавлен шаг тестирования приложения reddit в pipeline.
- - Cделан ansible-плейбук для автоматического развертывания и регистрации Runner-a на серверах.
+ - Cделан ansible-плейбук для автоматического развертывания и регистрации Runner-a на серверах и проверена его работа.
+```
+ansible-playbook -i hosts gitlab-runner.yml
+```
  - Настроена интеграция pipeline со slack-чатом.
 
 
