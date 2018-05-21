@@ -12,7 +12,7 @@ before_script:
  - ls -la 
  - uname -a
  - find / -name 'bundle' 
- - bundle install
+# - bundle install
 
 build_job:
   stage: build
