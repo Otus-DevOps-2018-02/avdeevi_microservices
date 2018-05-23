@@ -1,7 +1,5 @@
 USER_NAME     := garytrek
 
-CONTAINERS    := prometheus mongodb_exporter ui post comment cloudprober
-
 all: build pull  restart prometheus
 
 run:
@@ -14,8 +12,7 @@ kill:
 
 restart: kill run
 
-build: 
-#$(CONTAINERS)
+build: prometheus mongodb_exporter ui post comment cloudprober
 
 
 prometheus:
