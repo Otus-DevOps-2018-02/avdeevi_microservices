@@ -30,15 +30,15 @@ cloudprober:
 
 ui:
 	@echo ">>>>>>>>>>>>>> build ui image"
-	cd ./ui  && bash docker_build.sh ; cd -
+	cd ../src/ui  && bash docker_build.sh ; cd -
 
 post:
 	@echo ">>>>>>>>>>>>>> build post image"
-	cd ./post-py  && bash docker_build.sh ; cd -
+	cd ../src/post-py  && bash docker_build.sh ; cd -
 
 comment:
 	@echo ">>>>>>>>>>>>>> build comment image"
-	cd ./comment  && bash docker_build.sh ; cd -
+	cd ../src/comment  && bash docker_build.sh ; cd -
 
 
 push:

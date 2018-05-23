@@ -5,3 +5,4 @@
 .terraform/
 docker-monolith/infra/packer/variables.json
 variables.json
+\.env
