@@ -64,9 +64,9 @@ services:
       - back_net
 
   cloudprober:
-    image: cloudprober/cloudprober
-    volumes:
-      - /tmp/cloudprober.cfg:/etc/cloudprober.cfg
+    image: ${USERNAME}/cloudprober
+#    volumes:
+#      - /tmp/cloudprober.cfg:/etc/cloudprober.cfg
     networks:
       - front_net
 
