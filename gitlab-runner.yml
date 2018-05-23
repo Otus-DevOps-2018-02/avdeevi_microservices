@@ -1,0 +1,40 @@
+---
+- hosts:
+   - all
+  become: true
+  vars:
+   - gitlab_url: 'http://0.0.0.0/'
+   - gitlab_token: 'xxxxxxxxxxxxxxxxx'
+
+  tasks:
+  - name:
+    docker_container:
+      name: gitlab-runner
+      image: gitlab/gitlab-runner:latest
+      state: started
+      restart_policy: always
+      volumes:
+        - /srv/gitlab-runner/config:/etc/gitlab-runner
+        - /var/run/docker.sock:/var/run/docker.sock
+
+  - name: install expect
+    apt:
+      name: expect
+      state: present
+
+  - name:
+    template:
+      src: register-runner.sh.j2
+      dest: /root/register-runner.sh
+      mode: 0755
+
+  - name: 
+    shell: /root/register-runner.sh
+    register: runner_status
+  - debug:
+     var: runner_status.stdout_lines|last
+
+
+
+
+
