@@ -74,8 +74,7 @@ services:
 volumes:
   post_db:
   prometheus_data:
-  
- 
+
 networks:
   back_net:
    driver: bridge
