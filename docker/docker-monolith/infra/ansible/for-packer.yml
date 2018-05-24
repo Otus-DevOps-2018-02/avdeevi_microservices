@@ -1,0 +1,10 @@
+---
+ - hosts:
+    - all
+   roles:
+    - docker-server
+    - deploy
+   become: true
+
+
+
