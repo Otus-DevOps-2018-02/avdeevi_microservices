@@ -4,6 +4,8 @@ stages:
   - build
   - test
   - review
+  - stage
+  - production
 
 variables:
  DATABASE_URL: 'mongodb://mongo/user_posts'
@@ -22,10 +24,9 @@ test_unit_job:
   stage: test
   script:
     - echo 'Testing 1'
+    - ruby simpletest.rb
   services:
     - mongo:latest
-  script:
-    - ruby simpletest.rb 
 
 test_integration_job:
   stage: test
@@ -44,7 +45,7 @@ staging:
   stage: stage
   when: manual
   script:
-  - echo 'Deploy'
+   - echo 'Deploy'
   environment:
    name: stage
    url: https://beta.example.com
@@ -57,3 +58,5 @@ production:
   environment:
     name: production
     url: https://example.com
+
+
