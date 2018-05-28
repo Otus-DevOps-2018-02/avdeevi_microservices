@@ -1,0 +1,96 @@
+---
+- name: Create instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+
+  vars:
+    machine_type: "{{lookup('env','machine_type')}}"
+    image: "{{lookup('env','image')}}"
+    service_account_email: "{{lookup('env','service_account_email')}}"
+    credentials_file: "{{lookup('env','credentials_file')}}"
+    project_id: "{{lookup('env','project_id')}}"
+    CI_ENVIRONMENT_SLUG: "{{lookup('env','CI_ENVIRONMENT_SLUG')}}"
+
+  tasks:
+    - name: Launch instance
+      gce:
+          instance_names: "{{CI_ENVIRONMENT_SLUG}}"
+          machine_type: "{{ machine_type }}"
+          image: "{{ image }}"
+          service_account_email: "{{ service_account_email }}"
+          credentials_file: "{{ credentials_file }}"
+          project_id: "{{ project_id }}"
+          tags: gitlab-ci-dev
+      register: gce
+
+    - name: destroy instances
+      gce:
+          instance_names:  "{{CI_ENVIRONMENT_SLUG}}"
+          service_account_email: "{{ service_account_email }}"
+          credentials_file: "{{ credentials_file }}"
+          project_id: "{{ project_id }}"
+          tags: gitlab-ci-dev
+          state: absent
+      when: destroy is defined
+      tags: destroy
+
+
+    - name: Wait for SSH to come up
+      wait_for: host={{ item.public_ip }} port=22 delay=15 timeout=120
+      loop: "{{ gce.instance_data }}"
+
+    - name: Add host to groupname
+      add_host: hostname={{ item.public_ip }} groupname=new_instances
+      loop: "{{ gce.instance_data }}"
+
+
+- name: Manage new instances
+  hosts: new_instances
+  connection: ssh
+  become: true
+  tasks:
+  - name: install packages to allow apt use https
+    apt:
+      name: "{{ item }}"
+      update_cache: yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+
+  - name: add docker repo key
+    apt_key:
+     url: https://download.docker.com/linux/ubuntu/gpg
+
+  - name: add docker repo
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+      state: present
+
+  - name: install docker-ce
+    apt:
+      name: "{{item}}"
+      state: present
+    with_items:
+      - docker-compose
+      - docker-ce
+      - python-pip
+
+  - name: install prerequisites  packages for deploy images via ansible
+    pip:
+      name: docker-py
+
+  - name: get and start  my app container
+    docker_container:
+      name: reddit-app
+      image: garytrek/otus-reddit:1.0
+      state: started
+      restart: yes
+      published_ports:
+        - "9292:9292"
+
+
+
