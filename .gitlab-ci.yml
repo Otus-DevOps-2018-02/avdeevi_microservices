@@ -47,10 +47,8 @@ branch review:
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
      - echo "Create server.."
-     - pwd
-     - whoami
-     - find .
      - echo $CGE_CRED > ./docker/docker-monolith/infra/ansible/gce_cred.json
+     - pip install ansible
      - ansible-playbook ./docker/docker-monolith/infra/ansible/create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
