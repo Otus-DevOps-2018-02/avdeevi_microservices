@@ -2,8 +2,8 @@ image: ruby:2.4.2
 
 
 stages:
-  - build
-  - test
+#  - build
+#  - test
   - review
   - stage
   - production
@@ -15,31 +15,31 @@ before_script:
  - cd reddit
  - bundle install
 
-build_job:
-  stage: build
-  script:
-    - echo 'Building'
+#build_job:
+#  stage: build
+#  script:
+#    - echo 'Building'
 
-test_unit_job:
-  stage: test
-  script:
-    - echo 'Testing 1'
-    - ruby simpletest.rb
-  services:
-    - mongo:latest
+#test_unit_job:
+#  stage: test
+#  script:
+#    - echo 'Testing 1'
+#    - ruby simpletest.rb
+#  services:
+#    - mongo:latest
 
-test_integration_job:
-  stage: test
-  script:
-    - echo 'Testing 2'
+#test_integration_job:
+#  stage: test
+#  script:
+#    - echo 'Testing 2'
 
-deploy_dev_job:
-  stage: review
-  script:
-    - echo 'Deploy'
-  environment:
-    name: dev
-    url: http://dev.example.com
+#deploy_dev_job:
+#  stage: review
+#  script:
+#    - echo 'Deploy'
+#  environment:
+#    name: dev
+#    url: http://dev.example.com
 
 branch review:
   stage: review
