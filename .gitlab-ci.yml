@@ -43,7 +43,7 @@ before_script:
 #    url: http://dev.example.com
 
 branch review:
-  image: ansible/ansible:latest
+  image: ansible/ansible
   stage: review
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
