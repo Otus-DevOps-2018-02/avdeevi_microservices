@@ -43,12 +43,12 @@ before_script:
 #    url: http://dev.example.com
 
 branch review:
+  image: ansible/ansible:latest
   stage: review
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
      - echo "Create server.."
      - echo $CGE_CRED > ./docker/docker-monolith/infra/ansible/gce_cred.json
-     - pip install ansible
      - ansible-playbook ./docker/docker-monolith/infra/ansible/create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
