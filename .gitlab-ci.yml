@@ -11,10 +11,10 @@ stages:
 variables:
  DATABASE_URL: 'mongodb://mongo/user_posts'
 
-before_script:
- - cd reddit
- - bundle install
- - cd ../
+#before_script:
+# - cd reddit
+# - bundle install
+# - cd ../
 
 #build_job:
 #  stage: build
@@ -22,7 +22,7 @@ before_script:
 #    - echo 'Building'
 
 #test_unit_job:
-#  stage: test
+##  stage: test
 #  script:
 #    - echo 'Testing 1'
 #    - ruby simpletest.rb
