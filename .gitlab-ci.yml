@@ -43,7 +43,7 @@ variables:
 #    url: http://dev.example.com
 
 branch review:
-  image: ansible/ansible:ubuntu1604
+  image: williamyeh/ansible:alpine3
   stage: review
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
