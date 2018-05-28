@@ -48,6 +48,9 @@ branch review:
      - echo "Create server.."
      - echo $CGE_CRED > ./docker/docker-monolith/infra/ansible/gce_cred.json
      - ansible-playbook ./docker/docker-monolith/infra/ansible/create-env.yml
+     - pwd
+     - whoami
+     - find .
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
   environment:
