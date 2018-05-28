@@ -3,7 +3,7 @@
    - all
   become: true
   vars:
-   - gitlab_url: 'http://35.187.173.15/'
+   - gitlab_url: 'http://35.205.212.1/'
    - gitlab_token: '7p2VeC9tGtmzh1aJExik'
 
   tasks:
