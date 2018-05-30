@@ -23,6 +23,7 @@
           credentials_file: "{{ credentials_file }}"
           project_id: "{{ project_id }}"
           tags: gitlab-ci-dev
+          metadata: "ssh-keys: appuser: {{lookup('file', 'ansible_key.pub')}}"
       register: gce
 
     - name: destroy instances
