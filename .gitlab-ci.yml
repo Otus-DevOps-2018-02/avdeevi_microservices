@@ -44,7 +44,7 @@ variables:
 
 
 branch review:
-  image: garytrek/ansible
+  image: garytrek/ansible_runner
   stage: review
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
