@@ -42,7 +42,6 @@ variables:
 #    name: dev
 #    url: http://dev.example.com
 
-
 branch review:
   image: garytrek/ansible_runner
   stage: review
