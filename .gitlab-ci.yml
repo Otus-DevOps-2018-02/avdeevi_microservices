@@ -49,9 +49,7 @@ branch review:
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
      - echo "Create server.."
-     - whoami
-     - uname -a
-     - ansible --version
+     - env
      - cd ./docker/docker-monolith/infra/ansible/
      - echo $CGE_CRED > gce_cred.json
      - cat  gce_cred.json
