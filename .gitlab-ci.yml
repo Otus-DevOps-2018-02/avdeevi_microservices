@@ -52,10 +52,10 @@ branch review:
      - whoami
      - uname -a
      - ansible --version
-     - pwd
-     - env
-     - echo $CGE_CRED > ./docker/docker-monolith/infra/ansible/gce_cred.json
-     - ansible-playbook ./docker/docker-monolith/infra/ansible/create-env.yml
+     - cd ./docker/docker-monolith/infra/ansible/
+     - echo $CGE_CRED > gce_cred.json
+     - cat  gce_cred.json
+     - ansible-playbook create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
   environment:
