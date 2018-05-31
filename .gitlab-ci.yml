@@ -53,7 +53,7 @@ branch review:
      - uname -a
      - ansible --version
      - pwd
-     - ls -la /ansible
+     - env
      - echo $CGE_CRED > ./docker/docker-monolith/infra/ansible/gce_cred.json
      - ansible-playbook ./docker/docker-monolith/infra/ansible/create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
