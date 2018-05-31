@@ -1,5 +1,4 @@
-FROM ubuntu
-run apt-get update && apt-get -y upgrade && apt-get -y install python-pip
-run pip install ansible apache-libcloud
-
+FROM ubuntu:xenial
+run apt-get update && apt-get -y install python-pip openssh-client vim
+run pip install ansible apache-libcloud PyCrypto
 

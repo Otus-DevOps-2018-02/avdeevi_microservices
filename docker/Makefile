@@ -48,6 +48,7 @@ ansible_runner:
 
 push:
 	@echo "Push all containers"
+	docker push $(USER_NAME)/ansible_runner
 	docker push $(USER_NAME)/ui
 	docker push $(USER_NAME)/post
 	docker push $(USER_NAME)/comment
