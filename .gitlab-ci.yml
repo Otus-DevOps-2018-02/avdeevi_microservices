@@ -49,10 +49,10 @@ branch review:
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
      - echo "Create server.."
-     - env
      - cd ./docker/docker-monolith/infra/ansible/
      - echo $GCE_CRED|base64 --decode > gce_cred.json
-     - cat  gce_cred.json
+     - cat /root/.ssh/id_rsa.pub
+     - ls -la /root/.ssh/id_rsa.pub
      - ansible-playbook create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
