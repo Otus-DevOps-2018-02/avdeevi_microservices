@@ -15,12 +15,11 @@
     zone: 'europe-west1-b'
 
   tasks:
-    - name: generate key  
-      user: 
-        name: root
-#        ssh_key_file: "~/gce_ansible"
-        generate_ssh_key: yes
-        state: present
+#    - name: generate key  
+#      user: 
+#        name: root
+#        generate_ssh_key: yes
+#        state: present
 
     - name: delete ssh identity file 
       file:
@@ -28,7 +27,7 @@
         state: absent 
 
     - set_fact: 
-        root_key: "{{lookup('file','/root/.ssh/id_rsa.pub' )}}" 
+        root_key: "{{lookup('file','./ansible_key.pub' )}}" 
     - set_fact:
         metadata: "{'ssh-keys':'root:{{root_key}}'}"
 
