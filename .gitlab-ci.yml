@@ -28,9 +28,9 @@ build_job:
     - echo 'Building docker container'
     - env|grep CI
     - cd ./docker/docker-monolith/
-    - docker build -t garytrek/reddit-monolith .
-    - docker push garytrek/reddit-monolith
-
+    - docker build -t garytrek/reddit-monolith-$CI_BUILD_REF_SLUG .
+    - docker login  -u $DOCKER_LOGIN -p $DOCKER_PASS
+    - docker push garytrek/reddit-monolith-$CI_BUILD_REF_SLUG
 
 
 #test_unit_job:
