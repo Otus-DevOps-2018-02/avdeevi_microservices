@@ -22,7 +22,7 @@ build_job:
   image: docker
   script:
     - echo 'Building docker container'
-    - ./docker/docker-monolith/
+    - cd ./docker/docker-monolith/
     - docker build -t garytrek/reddit-monolith-$CI_ENVIRONMENT_SLUG .
     - docker push garytrek/reddit-monolith-$CI_ENVIRONMENT_SLUG
 
