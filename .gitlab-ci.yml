@@ -53,15 +53,29 @@ branch review:
      - echo $GCE_CRED|base64 --decode > gce_cred.json
      - echo $ansible_private_key|base64 --decode > ansible_key && chmod 600 ansible_key
      - ansible-playbook create-env.yml
-#     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
-
+     - rm -f gce_cred.json  ansible_key
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.com
+    on_stop: remove_gce_server
   only:
     - branches
   except:
     - master
+
+remove_gce_server:
+  stage: review
+  script:
+    - echo: Removing GCE server
+    - cd ./docker/docker-monolith/infra/ansible/
+    - echo $GCE_CRED|base64 --decode > gce_cred.json
+    - echo $ansible_private_key|base64 --decode > ansible_key && chmod 600 ansible_key
+    - ansible-playbook create-env.yml --tags remove --extra-vars remove=true
+    - rm -f gce_cred.json  ansible_key
+  when: manual
+  environment:
+    name: branch/$CI_COMMIT_REF_NAME
+    action: stop
 
 
 staging:
