@@ -64,6 +64,7 @@ branch review:
     - master
 
 remove_gce_server:
+  image: garytrek/ansible_runner
   stage: review
   script:
     - echo "Removing GCE server"
