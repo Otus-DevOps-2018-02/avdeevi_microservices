@@ -15,21 +15,15 @@
     zone: 'europe-west1-b'
 
   tasks:
-#    - name: generate key  
-#      user: 
-#        name: root
-#        generate_ssh_key: yes
-#        state: present
-
     - name: delete ssh identity file 
       file:
         path:  /root/.ssh/known_hosts
         state: absent 
 
     - set_fact: 
-        root_key: "{{lookup('file','./ansible_key.pub' )}}" 
+        appuser_key: "{{lookup('file','./ansible_key.pub' )}}" 
     - set_fact:
-        metadata: "{'ssh-keys':'root:{{root_key}}'}"
+        metadata: "{'ssh-keys':'appuser:{{appuser_key}}'}"
 
     - name: Launch instance
       gce:
@@ -42,7 +36,7 @@
           project_id: "{{project_id}}"
           tags: 'gitlab-ci-dev'
           state: present
-          metadata: '{"ssh-keys":"root:{{root_key}}"}'
+          metadata: "{{metadata}}"
       register: gce
 
 
