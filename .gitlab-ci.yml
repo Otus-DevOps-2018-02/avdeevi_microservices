@@ -11,7 +11,7 @@ stages:
 
 variables:
  DATABASE_URL: 'mongodb://mongo/user_posts'
-
+ DOCKER_DRIVER: overlay2
 #before_script:
 # - cd reddit
 # - bundle install
@@ -19,10 +19,14 @@ variables:
 
 build_job:
   stage: build
-  image: docker
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - docker info
   script:
     - echo 'Building docker container'
-    - env
+    - env|grep CI
     - cd ./docker/docker-monolith/
     - docker build -t garytrek/reddit-monolith .
     - docker push garytrek/reddit-monolith
