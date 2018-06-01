@@ -51,8 +51,9 @@ branch review:
      - echo "Create server.."
      - cd ./docker/docker-monolith/infra/ansible/
      - echo $GCE_CRED|base64 --decode > gce_cred.json
-     - cat /root/.ssh/id_rsa.pub
-     - ls -la /root/.ssh/id_rsa.pub
+     - echo $ansible_private_key|base64 --decode > ansible_key
+     - cat ansible_key
+     - ls -la ansible*
      - ansible-playbook create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
