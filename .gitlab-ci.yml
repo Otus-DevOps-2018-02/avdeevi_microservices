@@ -3,7 +3,7 @@ image: ruby:2.4.2
 
 stages:
   - build
-#  - test
+  - test
   - review
   - stage
   - production
@@ -12,10 +12,11 @@ stages:
 variables:
  DATABASE_URL: 'mongodb://mongo/user_posts'
  DOCKER_DRIVER: overlay2
-#before_script:
-# - cd reddit
-# - bundle install
-# - cd ../
+
+before_script:
+ - cd reddit
+ - bundle install
+ - cd ../
 
 build_job:
   stage: build
@@ -26,33 +27,32 @@ build_job:
     - docker info
   script:
     - echo 'Building docker container'
-    - env|grep CI
     - cd ./docker/docker-monolith/
     - docker build -t garytrek/reddit-monolith-$CI_BUILD_REF_SLUG .
     - docker login  -u $DOCKER_LOGIN -p $DOCKER_PASS
     - docker push garytrek/reddit-monolith-$CI_BUILD_REF_SLUG
 
 
-#test_unit_job:
-##  stage: test
-#  script:
-#    - echo 'Testing 1'
-#    - ruby simpletest.rb
-#  services:
-#    - mongo:latest
+test_unit_job:
+  stage: test
+  script:
+    - echo 'Testing 1'
+    - ruby simpletest.rb
+  services:
+    - mongo:latest
 
-#test_integration_job:
-#  stage: test
-#  script:
-#    - echo 'Testing 2'
+test_integration_job:
+  stage: test
+  script:
+    - echo 'Testing 2'
 
-#deploy_dev_job:
-#  stage: review
-#  script:
-#    - echo 'Deploy'
-#  environment:
-#    name: dev
-#    url: http://dev.example.com
+deploy_dev_job:
+  stage: review
+  script:
+    - echo 'Deploy'
+  environment:
+    name: dev
+    url: http://dev.example.com
 
 branch review:
   image: garytrek/ansible_runner
