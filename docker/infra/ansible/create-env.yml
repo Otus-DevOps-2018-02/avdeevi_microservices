@@ -102,7 +102,7 @@
   - name: get and start  my app container
     docker_container:
       name: reddit-app
-      image: garytrek/otus-reddit:1.0
+      image: "{{DOCKER_IMAGE}}"
       state: started
       restart: yes
       published_ports:
