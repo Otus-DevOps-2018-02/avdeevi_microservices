@@ -66,7 +66,7 @@ branch review:
 remove_gce_server:
   stage: review
   script:
-    - echo: Removing GCE server
+    - echo "Removing GCE server"
     - cd ./docker/docker-monolith/infra/ansible/
     - echo $GCE_CRED|base64 --decode > gce_cred.json
     - echo $ansible_private_key|base64 --decode > ansible_key && chmod 600 ansible_key
