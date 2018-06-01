@@ -54,6 +54,7 @@ branch review:
      - echo $ansible_private_key|base64 --decode > ansible_key
      - cat ansible_key
      - ls -la ansible*
+     - ansible-config view
      - ansible-playbook create-env.yml
 #     - rm -f ./docker/docker-monolith/infra/ansible/gce_cred.json
 
