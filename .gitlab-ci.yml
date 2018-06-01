@@ -2,7 +2,7 @@ image: ruby:2.4.2
 
 
 stages:
-#  - build
+  - build
 #  - test
   - review
   - stage
@@ -17,10 +17,15 @@ variables:
 # - bundle install
 # - cd ../
 
-#build_job:
-#  stage: build
-#  script:
-#    - echo 'Building'
+build_job:
+  stage: build
+  image: docker
+  script:
+    - echo 'Building docker container'
+    - ./docker/docker-monolith/
+    - docker build -t garytrek/reddit-monolith-$CI_ENVIRONMENT_SLUG .
+    - docker push garytrek/reddit-monolith-$CI_ENVIRONMENT_SLUG
+
 
 #test_unit_job:
 ##  stage: test
@@ -49,7 +54,7 @@ branch review:
   script:
      - echo "Deploy to $CI_ENVIRONMENT_SLUG"
      - echo "Create server.."
-     - cd ./docker/docker-monolith/infra/ansible/
+     - cd ./docker/infra/ansible/
      - echo $GCE_CRED|base64 --decode > gce_cred.json
      - echo $ansible_private_key|base64 --decode > ansible_key && chmod 600 ansible_key
      - ansible-playbook create-env.yml
@@ -68,7 +73,7 @@ remove_gce_server:
   stage: review
   script:
     - echo "Removing GCE server"
-    - cd ./docker/docker-monolith/infra/ansible/
+    - cd ./docker/infra/ansible/
     - echo $GCE_CRED|base64 --decode > gce_cred.json
     - echo $ansible_private_key|base64 --decode > ansible_key && chmod 600 ansible_key
     - ansible-playbook create-env.yml --tags destroy --extra-vars destroy=true
