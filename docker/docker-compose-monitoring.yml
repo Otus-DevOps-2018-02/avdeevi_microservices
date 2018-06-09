@@ -13,6 +13,9 @@ services:
     networks:
       - back_net
       - front_net
+    extra_hosts:
+       - "outside:127.0.0.1"
+
 
   node-exporter:
     image: prom/node-exporter:v0.15.2
