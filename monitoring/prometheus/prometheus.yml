@@ -46,7 +46,7 @@ scrape_configs:
   - job_name: 'docker'
     static_configs:
       - targets:
-        - 'outside:9323'
+        - 'master_host:9323'
 
 
 

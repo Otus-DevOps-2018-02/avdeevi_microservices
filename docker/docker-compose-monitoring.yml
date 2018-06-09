@@ -14,7 +14,9 @@ services:
       - back_net
       - front_net
     extra_hosts:
-       - "outside:127.0.0.1"
+      - master_host:10.0.2.1
+
+
 
 
   node-exporter:
