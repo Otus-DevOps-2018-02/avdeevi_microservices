@@ -1,4 +1,5 @@
 FROM python:3.6.0-alpine
+RUN apk add --update alpine-sdk musl-dev
 WORKDIR /app
 ADD . /app
 RUN pip install -r /app/requirements.txt
