@@ -44,6 +44,9 @@ ansible_runner:
 	@echo ">>>>>>>>>>>>>> build ansible image"
 	cd docker_ansible  &&  docker build  -t $(USER_NAME)/ansible_runner . && docker push $(USER_NAME)/ansible_runner; cd -
 
+alertmanager:
+	@echo ">>>>>>>>>>>>>> build alertmanager image"
+	cd ../monitoring/alertmanager &&  docker build  -t $(USER_NAME)/alertmanager . ; cd -
 
 
 push:
@@ -55,7 +58,7 @@ push:
 	docker push $(USER_NAME)/cloudprober
 	docker push $(USER_NAME)/prometheus
 	docker push $(USER_NAME)/mongodb_exporter
+	docker push $(USER_NAME)/alertmanager
 
-
-.PHONY: all run kill restart docker prometheus push comments post ui cloudprober mongodb_exporter
+.PHONY: all run kill restart docker prometheus push comments post ui cloudprober mongodb_exporter ansible_runner alertmanager
 
