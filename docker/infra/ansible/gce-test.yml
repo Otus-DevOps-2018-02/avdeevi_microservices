@@ -1,0 +1,28 @@
+---
+- name: Create instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+
+#export machine_typ=e"g1-small"
+#export image='ubuntu-1604-xenial-v20180522'
+#export service_account_email='ansible2@docker-203817.iam.gserviceaccount.com'
+#export credentials_file='gce_cred.json'
+#export project_id='docker-203817'
+#export CI_ENVIRONMENT_SLUG='my-dev-server-test'
+  tasks:
+
+    - name: Launch instance
+      gce:
+          zone: us-central1-a
+          instance_names: "gitlab-ci-dev-111qqq"
+          machine_type: "g1-small"
+          image_family: "ubuntu-1604-lts"
+          service_account_email: "ansible2@docker-203817.iam.gserviceaccount.com"
+          credentials_file: "./gce_cred.json"
+          project_id: "docker-203817"
+          tags: 'gitlab-ci-dev'
+          state: absent
+
+
+

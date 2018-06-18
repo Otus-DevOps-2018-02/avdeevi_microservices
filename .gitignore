@@ -6,3 +6,4 @@
 docker-monolith/infra/packer/variables.json
 variables.json
 \.env
+gce_cred.json

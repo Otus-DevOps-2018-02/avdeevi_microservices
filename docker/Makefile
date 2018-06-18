@@ -40,9 +40,15 @@ comment:
 	@echo ">>>>>>>>>>>>>> build comment image"
 	cd ../src/comment  && bash docker_build.sh ; cd -
 
+ansible_runner:
+	@echo ">>>>>>>>>>>>>> build ansible image"
+	cd docker_ansible  &&  docker build  -t $(USER_NAME)/ansible_runner . && docker push $(USER_NAME)/ansible_runner; cd -
+
+
 
 push:
 	@echo "Push all containers"
+	docker push $(USER_NAME)/ansible_runner
 	docker push $(USER_NAME)/ui
 	docker push $(USER_NAME)/post
 	docker push $(USER_NAME)/comment
