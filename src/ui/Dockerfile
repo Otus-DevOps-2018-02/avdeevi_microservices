@@ -1,7 +1,7 @@
 FROM alpine
 
 RUN apk update && apk upgrade && apk --update add \
-    ruby ruby-dev ruby-bundler \
+    ruby ruby-dev ruby-bundler ruby-json \
     && apk add --virtual build-base 
 
 ENV APP_HOME /app
